@@ -1,0 +1,63 @@
+﻿@model hey_url_challenge_code_dotnet.ViewModels.AgentViewModel
+@using hey_url_challenge_code.Resources
+
+@{
+    ViewData["Title"] = "Visit Page";
+}
+
+<div class="col s12 m7">
+    <h2 class="header">Detail of Click</h2>
+    <div class="card horizontal">
+
+        <div class="card-stacked">
+            <div class="card-content">
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s3">
+                                <i class="material-icons prefix">insert_link</i>
+                                <input id="icon_prefix" type="text" class="validate" value="@Model.ShortUrl" readonly>
+                                <label for="icon_prefix">@Language.ShortUrl</label>
+                                <button class="btn waves-effect waves-light" id="btnOpenUrl" onclick="openUrl()">
+                                    Open
+                                    <i class="material-icons right">done</i>
+                                </button>
+                                @Html.ActionLink("BACK", "Index", "Urls", new { id = "btnBack" }, new { @class = "waves-effect waves-light btn" })
+
+                            </div>
+                            <div class="input-field col s3">
+                                <i class="material-icons prefix">public</i>
+                                <input id="icon_prefix" type="text" class="validate" value="@Model.Browser" readonly>
+                                <label for="icon_prefix">@Language.Browser</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <i class="material-icons prefix">desktop_windows</i>
+                                <input id="icon_telephone" type="tel" class="validate" value="@Model.Platform" readonly>
+                                <label for="icon_telephone">@Language.PlatForm</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card-action">
+                <a href="#">@Language.WaitOrClickOpen </a>
+                <label id="counter" style="font-size:large">3</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var counter = 3;
+
+    var refreshIntervalId  = setInterval(incrementTimeOut, 1000);
+    function incrementTimeOut() {
+        counter -= 1;
+        document.getElementById("counter").innerText = counter;
+        if (counter === 0){
+            window.open('@Model.OriginalUrl', '_blank');
+            clearInterval(refreshIntervalId);
+        }
+    }
+</script>
